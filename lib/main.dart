@@ -1,63 +1,73 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+void main() => runApp(
+      MaterialApp(
+        home: BallPage(),
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
-  }
-}
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
+class BallPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue,
       appBar: AppBar(
-        title: Text(widget.title),
+        backgroundColor: Colors.blue.shade900,
+        title: Text('Ask Me Anything'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: Ball(),
+    );
+  }
+}
+
+class Ball extends StatefulWidget {
+  @override
+  _BallState createState() => _BallState();
+}
+
+class _BallState extends State<Ball> {
+  List<String> ballMap = [
+    'YES',
+    'NO',
+    'ASK\nAGAIN\nLATER',
+    'THE\nANSWER\nIS YES',
+    'I HAVE\nNO IDEA'
+  ];
+
+  String ballAnswer = '';
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: FlatButton(
+        child: Stack(
+          alignment: AlignmentDirectional.center,
           children: <Widget>[
+            Image.asset('images/ball.png'),
             Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
+              ballAnswer,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'Fresca',
+                fontSize: 16.0,
+                color: Colors.blue.shade200,
+                letterSpacing: 2.5,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+        onPressed: () {
+          getTextFromBall();
+        },
       ),
     );
+  }
+
+  void getTextFromBall() {
+    setState(() {
+      ballAnswer = '${ballMap[Random().nextInt(5)]}\n';
+    });
   }
 }

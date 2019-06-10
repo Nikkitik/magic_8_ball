@@ -21,3 +21,8 @@ flutter:
 
   assets:
     - images/ball.png
+
+  fonts:
+    - family: Fresca
+      fonts:
+        - asset: fonts/Fresca-Regular.ttf
